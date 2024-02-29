@@ -40,9 +40,9 @@ jobs:
     
     - name: Analysing the code with pylint
       uses: Silleellie/pylint-github-action@v2
-        with:
-          lint-path: src
-          python-version: 3.11
+      with:
+        lint-path: src
+        python-version: ${{ matrix.python-version }}
 
     - name: Running tests
       run: |
