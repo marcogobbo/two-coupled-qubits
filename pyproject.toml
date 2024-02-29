@@ -15,6 +15,7 @@ qutip = "^4.7.5"
 jupyter = "^1.0.0"
 pytest = "^8.0.2"
 pylint = "^3.1.0"
+pylint-exit = "^1.2.0"
 
 
 [build-system]

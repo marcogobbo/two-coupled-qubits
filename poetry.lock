@@ -1982,6 +1982,17 @@ spelling = ["pyenchant (>=3.2,<4.0)"]
 testutils = ["gitpython (>3)"]
 
 [[package]]
+name = "pylint-exit"
+version = "1.2.0"
+description = "Exit code handler for pylint command line utility."
+optional = false
+python-versions = "*"
+files = [
+    {file = "pylint-exit-1.2.0.zip", hash = "sha256:b6ad02884c01c5560a5275079fe5a6c792afff90ecccf0c02513e1547ee280b0"},
+    {file = "pylint_exit-1.2.0-py2.py3-none-any.whl", hash = "sha256:65c9e7856e9058705a92d7c45628d604b2a4b8ee2b3c18a7303be77f9ed87cbe"},
+]
+
+[[package]]
 name = "pyparsing"
 version = "3.1.1"
 description = "pyparsing module - Classes and methods to define and execute parsing grammars"
@@ -2803,4 +2814,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "a28a2eddafe72c8392b3274146cf9b4caf2a103768149e620a2d7cc324719576"
+content-hash = "b0343080545f307033948f9709b84af5754d19c6a14617bc037251fc9c74db3c"
