@@ -1,4 +1,4 @@
-name: Lint-Test-Mypy
+name: Lint-Test
 
 on: [push]
 
@@ -33,10 +33,16 @@ jobs:
     - name: Install project
       run: poetry install --no-interaction ${{ inputs.poetry-extras }}
 
+    #- name: Analysing the code with pylint
+    #  run: |
+    #    source $VENV
+    #    pylint src/ || pylint-exit $?
+    
     - name: Analysing the code with pylint
-      run: |
-        source $VENV
-        pylint src/ || pylint-exit $?
+      uses: Silleellie/pylint-github-action@v2
+        with:
+          lint-path: src
+        python-version: ${{ matrix.python-version }}
 
     - name: Running tests
       run: |
