@@ -1,6 +1,6 @@
 # Two coupled qubits
 
-![Lint-Pytest-Mypy](https://github.com/marcogobbo/two-coupled-qubits/actions/workflows/analysis.yml/badge.svg)
+[![pylint]()](https://redirect/link)
 
 Project to simulate the interaction between two coupled qubits and study the interaction of non-computational levels using QuTiP.
 
