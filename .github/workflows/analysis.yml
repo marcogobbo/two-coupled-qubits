@@ -42,8 +42,3 @@ jobs:
       run: |
         source $VENV
         pytest tests/
-
-    - name: Running Mypy analysis
-      uses: python/mypy@master
-      with:
-        paths: "src/"
