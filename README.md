@@ -1,6 +1,6 @@
 # Two coupled qubits
 
-![pylint](https://img.shields.io/badge/PyLint-9.23-yellow?logo=python&logoColor=whitehttps://img.shields.io/badge/PyLint-9.23-yellow?logo=python&logoColor=white)
+![pylint](https://img.shields.io/badge/PyLint-9.23-yellow?logo=python&logoColor=white)
 
 Project to simulate the interaction between two coupled qubits and study the interaction of non-computational levels using QuTiP.
 
