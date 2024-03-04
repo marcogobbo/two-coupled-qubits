@@ -39,7 +39,7 @@ jobs:
     #    pylint src/ || pylint-exit $?
     
     - name: Analysing the code with pylint
-      uses: Silleellie/pylint-github-action@v2
+      uses: marcogobbo/pylint-github-action@main
       with:
         lint-path: src
         python-version: ${{ matrix.python-version }}
