@@ -2,41 +2,16 @@
 Test utils functions.
 """
 
-from two_coupled_qubits import (
-    capacitance,
-    capacitance_energy,
-    critical_current,
-    josephson_energy,
-)
+from numpy import array
+
+from two_coupled_qubits import find_idx
 
 
-def test_capacitance():
+def test_find_idx():
     """
-    Test capacitance function.
+    Test find_idx function.
     """
-    c = capacitance(0.23)
-    assert round(c, 2) == 84.22
+    elements = range(100)
+    ndarray_elements = array(elements)
 
-
-def test_critical_current():
-    """
-    Test critical current function.
-    """
-    i_c = critical_current(16.34)
-    assert round(i_c, 2) == 32.9
-
-
-def test_capacitance_energy():
-    """
-    Test capacitance energy function.
-    """
-    e_c = capacitance_energy(84.22)
-    assert round(e_c, 2) == 0.23
-
-
-def test_josephson_energy():
-    """
-    Test Josephson energy function.
-    """
-    e_j = josephson_energy(32.9)
-    assert round(e_j, 2) == 16.34
+    assert (find_idx(elements, 40), find_idx(ndarray_elements, 20)) == (40, 20)
