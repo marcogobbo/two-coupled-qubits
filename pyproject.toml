@@ -30,4 +30,3 @@ optional = true
 [tool.poetry.group.analysis.dependencies]
 pylint = "^3.1.0"
 pylint-exit = "^1.2.0"
-mypy = "^1.9.0"
