@@ -72,7 +72,7 @@ class ChargeQubit:
         n = 0
 
         for i in range(2 * self.levels):
-            n = (
+            n += (
                 eigenvectors[i] * eigenvectors[i + 1].dag()
                 - eigenvectors[i + 1] * eigenvectors[i].dag()
             )
