@@ -1,4 +1,4 @@
-name: Analysis
+name: Tests
 
 on: [push]
 
@@ -28,17 +28,12 @@ jobs:
         path: ~/.cache
         key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
     - name: Install dependencies
-      run: poetry install --no-interaction --no-root --with analysis
+      run: poetry install --no-interaction --no-root --with tests
       if: steps.cache.outputs.cache-hit != 'true'
     - name: Install project
       run: poetry install --no-interaction ${{ inputs.poetry-extras }}
 
-    - name: Analysing the code with pylint
+    - name: Running tests
       run: |
         source $VENV
-        pylint src/ || pylint-exit $?
-
-    - name: Running Mypy analysis
-      uses: python/mypy@master
-      with:
-        paths: "src/"
+        pytest tests/
