@@ -1,24 +1,51 @@
-"""Class for charge qubits."""
+"""Charge qubit class."""
 
-import matplotlib.pyplot as plt
+from dataclasses import dataclass
+
 import numpy as np
 from qutip import Qobj
+from scipy.constants import e, h, physical_constants, pi
 
 
+@dataclass
 class ChargeQubit:
-    """Define a charge qubit hamiltonian."""
+    """Charge qubit class.
 
-    def __init__(self, e_c: float, e_j: float, levels: int, n_g: float):
-        """Initialize the basic parameters for the hamiltonian."""
-        self.e_c = e_c
-        self.e_j = e_j
-        self.levels = levels
-        self.n_g = n_g
+    Build the charge qubit hamiltonian from given parameters.
+
+    Args:
+        e_c (float): capacitance energy of the charge qubit in GHz;
+        e_j (float): Josephson energy of the charge qubit in GHz;
+        levels (int): number of levels of the charge qubit;
+        n_g (int): offset charge of the charge qubit.
+    """
+
+    e_c: float
+    e_j: float
+    levels: int
+    n_g: int = 0
 
     @property
-    def hamiltonian(self) -> Qobj:
+    def w(self):
+        """The (2π * ) resonant frequency of the charge qubit in GHz."""
+        return 2 * np.pi * (np.sqrt(8 * self.e_j * self.e_c) - self.e_c)
+
+    @property
+    def c_s(self):
+        """Shunt capacitance of the charge qubit in fF."""
+        return (e**2 / (2 * h * (self.e_c * 1e9))) * 1e15
+
+    @property
+    def i_c(self):
+        """Critical current of the charge qubit in nA."""
+        return (
+            h * (self.e_j * 1e9) * 2 * pi / physical_constants["mag. flux quantum"][0]
+        ) * 1e9
+
+    @property
+    def h(self) -> Qobj:
         """Hamiltonian of the charge qubit as Qobj."""
-        self.h = Qobj(
+        return Qobj(
             (
                 np.diag(
                     4 * self.e_c * np.arange(-self.levels, self.levels + 1) - self.n_g
@@ -32,33 +59,24 @@ class ChargeQubit:
                 + np.diag(-np.ones(2 * self.levels), -1)
             )
         )
-        return self.h
 
-    def build(self, n_g: float) -> Qobj:
-        """Build the hamiltonian of the charge qubit as Qobj."""
-        self.h = Qobj(
-            (
-                np.diag(4 * self.e_c * np.arange(-self.levels, self.levels + 1) - n_g)
-                ** 2
+    @property
+    def number(self) -> tuple[Qobj, Qobj]:
+        """Number operator of the charge qubit as Qobj.
+
+        Returns:
+            tuple[Qobj, Qobj]: number operator in the charge basis and in the energy basis.
+        """
+        eigenvectors, _ = self.h.eigenstates()
+
+        n = 0
+
+        for i in range(2 * self.levels):
+            n = (
+                eigenvectors[i] * eigenvectors[i + 1].dag()
+                - eigenvectors[i + 1] * eigenvectors[i].dag()
             )
-            + 0.5
-            * self.e_j
-            * (
-                np.diag(-np.ones(2 * self.levels), 1)
-                + np.diag(-np.ones(2 * self.levels), -1)
-            )
-        )
-        return self.h
 
-    def get_energy_spectrum(self, n_gs: np.ndarray):
-        """Return a plot of the energy spectrum."""
-        energies = np.array([self.build(n_g).eigenenergies() for n_g in n_gs])
+        n *= (self.e_j / (32 * self.e_c)) ** (1 / 4) * 1j
 
-        for i in range(3):
-            plt.plot(n_gs, energies[:, i], label=f"$E_{i}$")
-
-        plt.title(f"$E_J/E_C={round(self.e_j/self.e_c,2)}$")
-        plt.xlabel("$n_g$")
-        plt.ylabel("$E_n$ [GHz]")
-        plt.legend()
-        plt.show()
+        return (Qobj(np.diag(np.arange(-self.levels, self.levels + 1))), n)
