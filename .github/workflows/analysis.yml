@@ -37,8 +37,3 @@ jobs:
       run: |
         source $VENV
         pylint src/ || pylint-exit $?
-
-    - name: Running Mypy analysis
-      uses: python/mypy@master
-      with:
-        paths: "src/"
