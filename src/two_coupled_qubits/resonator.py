@@ -14,12 +14,12 @@ class Resonator:
     Build the resonator hamiltonian from given parameters.
 
     Args:
-        n (int): the dimension of the Fock space;
+        dim (int): the dimension of the Fock space;
         w (float): the (2π * ) resonant frequency of the resonator in GHz;
         c_r (float): the capacity of the resonator in fF.
     """
 
-    n: int
+    dim: int
     w: float
     c_r: float
 
@@ -31,5 +31,5 @@ class Resonator:
     @property
     def h(self) -> Qobj:
         """Hamiltonian of the resonator."""
-        a = destroy(self.n)
+        a = destroy(self.dim)
         return self.w * a.dag() * a

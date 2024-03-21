@@ -26,17 +26,22 @@ class ChargeQubit:
     n_g: int = 0
 
     @property
-    def w(self):
+    def dim(self) -> int:
+        """The dimension of the charge qubit Hilbert space."""
+        return 2 * self.levels + 1
+
+    @property
+    def w(self) -> float:
         """The (2π * ) resonant frequency of the charge qubit in GHz."""
         return 2 * np.pi * (np.sqrt(8 * self.e_j * self.e_c) - self.e_c)
 
     @property
-    def c_s(self):
+    def c_s(self) -> float:
         """Shunt capacitance of the charge qubit in fF."""
         return (e**2 / (2 * h * (self.e_c * 1e9))) * 1e15
 
     @property
-    def i_c(self):
+    def i_c(self) -> float:
         """Critical current of the charge qubit in nA."""
         return (
             h * (self.e_j * 1e9) * 2 * pi / physical_constants["mag. flux quantum"][0]
@@ -67,7 +72,7 @@ class ChargeQubit:
         Returns:
             tuple[Qobj, Qobj]: number operator in the charge basis and in the energy basis.
         """
-        eigenvectors, _ = self.h.eigenstates()
+        _, eigenvectors = self.h.eigenstates()
 
         n = 0
 
