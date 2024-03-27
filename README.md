@@ -9,7 +9,7 @@ Project to simulate the interaction between two coupled qubits and study the int
 Clone the repository with
 
 ```bash
-git clone https://github.com/marcogobbo/2-coupled-qubits
+git clone https://github.com/marcogobbo/two-coupled-qubits
 ```
 
 Install it in normal mode
@@ -29,4 +29,4 @@ pre-commit install
 - [@marcogobbo](https://github.com/marcogobbo/)
 
 ## License
-Two coupled qubits is licensed under the [Apache License 2.0](https://github.com/marcogobbo/2-coupled-qubits/blob/main/LICENSE).
+Two coupled qubits is licensed under the [Apache License 2.0](https://github.com/marcogobbo/two-coupled-qubits/blob/main/LICENSE).
