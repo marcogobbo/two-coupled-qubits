@@ -74,14 +74,6 @@ class ChargeQubit:
         """
         _, eigenvectors = self.h.eigenstates()
 
-        n = 0
+        n = Qobj(np.diag(np.arange(-self.levels, self.levels + 1)))
 
-        for i in range(2 * self.levels):
-            n += (
-                eigenvectors[i] * eigenvectors[i + 1].dag()
-                - eigenvectors[i + 1] * eigenvectors[i].dag()
-            )
-
-        n *= (self.e_j / (32 * self.e_c)) ** (1 / 4) * 1j
-
-        return (Qobj(np.diag(np.arange(-self.levels, self.levels + 1))), n)
+        return (n, n.transform(eigenvectors))
